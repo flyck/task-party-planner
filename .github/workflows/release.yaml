@@ -1,28 +1,20 @@
 name: Release
+
 on:
   push:
     branches:
-      - 'main'
-      - 'release/**'
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
     steps:
-      -
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      -
-        name: Set application version
-        id: set_version
-        uses: kvendingoldo/semver-action@v1.18
-        with:
-          enable_github_releases: true
-          release_tag_prefix: "v"
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
-      -
-        name: Generated version
-        run: echo ${{ steps.set_version.outputs.version }}
+      - uses: actions/checkout@v2
+
+      - name: Prepare local repository
+        run: git fetch --prune --unshallow --tags -f
+
+     - name: semver-releaser
+       uses: heyvito/semver-releaser@v0.0.10
+       with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
