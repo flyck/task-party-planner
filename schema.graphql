@@ -1,0 +1,28 @@
+type Party {
+  id: String
+  title: String
+  description: String
+  location: String
+  time: String
+}
+
+type Query {
+  getParty(id: String): Party
+}
+
+type Mutation {
+  createParty(
+    title: String
+    description: String
+    location: String
+    time: String
+  ): Party
+  deleteParty(
+    id: Int!
+  ): Party
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
