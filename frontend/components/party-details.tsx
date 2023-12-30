@@ -1,13 +1,22 @@
-"use client"
+import React from "react"
 
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/l6J3KeWghpZ
  */
 import { Button } from "@/components/ui/button"
-import AppLayout from "@/app/appLayout"
+import AppLayout from "@/components/appLayout"
 
 const PartyDetails: React.FC<{}> = () => {
+  const [hydrated, setHydrated] = React.useState(false);
+  React.useEffect(() => {
+    setHydrated(true);
+  }, []);
+  if (!hydrated) {
+    // Returns null on first render, so the client and server match
+    return null;
+  }
+
   return (<AppLayout title="Details" left={""} right={""}>
     <div className="border-b border-gray-500 p-2">
       <div className="text-sm">Title:</div>
@@ -35,8 +44,8 @@ const PartyDetails: React.FC<{}> = () => {
 }
 
 function checkUser() {
-  const userName = localStorage.getItem("userName") || ""
-  const userEmail = localStorage.getItem("userName") || ""
+  const userName = typeof window !== "undefined" ? window.localStorage.getItem("userName") : ""
+  const userEmail = typeof window !== "undefined" ? window.localStorage.getItem("userEmail") : ""
 
   if (!userName) {
     window.location.assign("/editUser?showInfo=true");

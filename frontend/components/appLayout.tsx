@@ -16,32 +16,34 @@ export default function AppLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="p-4 mx-auto my-auto">
-      <div id="modal-root" className="z-50"></div>
-      <div className="mb-4 flex w-80">
-        {left ? <a href={left} className="flex">
-          <ChevronLeftIcon className="h-7 w-7 self-center mr-2" />
-        </a> : <div className="flex">
-          <div className="h-7 w-7 self-center mr-2" />
-        </div>}
-        <div className="w-full h-96">
-          <div className="mb-4">
-            <div className="w-full bg-gray-900 border-gray-800 p-2 rounded-lg text-center border-gray-800 border">
-              {title}
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <div className="p-4 mx-auto my-auto">
+        <div id="modal-root" className="z-50"></div>
+        <div className="mb-4 flex w-80">
+          {left ? <a href={left} className="flex">
+            <ChevronLeftIcon className="h-7 w-7 self-center mr-2" />
+          </a> : <div className="flex">
+            <div className="h-7 w-7 self-center mr-2" />
+          </div>}
+          <div className="w-full h-96">
+            <div className="mb-4">
+              <div className="w-full bg-gray-900 border-gray-800 p-2 rounded-lg text-center border-gray-800 border">
+                {title}
+              </div>
+            </div>
+            <div className="rounded-lg border bg-gray-900 text-gray-100 border-gray-800">
+              {children}
             </div>
           </div>
-          <div className="rounded-lg border bg-gray-900 text-gray-100 border-gray-800">
-            {children}
-          </div>
+          {right ? <a href={right} className="flex">
+            <ChevronRightIcon className="h-7 w-7 self-center ml-2" />
+          </a> : <div className="flex">
+            <div className="h-7 w-7 self-center ml-2" />
+          </div>}
         </div>
-        {right ? <a href={right} className="flex">
-          <ChevronRightIcon className="h-7 w-7 self-center ml-2" />
-        </a> : <div className="flex">
-          <div className="h-7 w-7 self-center ml-2" />
-        </div>}
-      </div>
-      <UserDetails />
-    </div >
+        <UserDetails />
+      </div >
+    </main>
   )
 }
 

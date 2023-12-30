@@ -1,27 +1,25 @@
-"use client"
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button } from "@/components/ui/button"
-import AppLayout from '@/app/appLayout';
 
-interface UserInfo {
-  name: string
-  email: string
-}
-const UserDetails: React.FC<any> = ({ epics, events, mode }) => {
-  const [open, setOpen] = useState(false)
-  const [userData, setUserData] = useState({
-    name: localStorage.getItem("userName") || "",
-    email: localStorage.getItem("userEmail") || "",
-  });
+const UserDetails: React.FC<any> = () => {
+  //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
+  const [hydrated, setHydrated] = React.useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   return (<>
     <div className="text-right">
       <Button className="inline-block bg-gray-900 border-gray-800" variant="outline" onClick={() => window.location.assign("/editUser")}>
-        {userData?.name || "Anonymous"}
+        {!hydrated ? null : getUserName()}
       </Button>
     </div >
   </>)
+}
+
+function getUserName() {
+  const name = window.localStorage.getItem("userName")
+  return name || "Anonymous"
 }
 
 export default UserDetails
