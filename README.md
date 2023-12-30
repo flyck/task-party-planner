@@ -1,12 +1,32 @@
 # Party Task Planner
 
+## New Technologies
+
+In this app I want to try a bunch of new things:
+- [x] Vercel for frontend hosting
+- [x] Automated releases with github actions
+- [x] Appsync javascript resolvers
+- [ ] Playwright frontend tests
+- [ ] HTMX instead of react & apollo
+
+## DX Notes
+
+- Even though I can get nice types, the whole thing should be much easier
+- Isnt there a service out there which I can just give my graphql schema and it will provision the
+  api? the cdk setup including CI/CD seems kind of big for a relatively simple thing
+- Trying a bunch of new technologies while trying to be fast at the same time is
+  contradictory. For speed it might be better to use a known tool to reduce complexity instead of
+  getting familiar with many new things
+
 ## CI/CD
 
 Vercel provides CI/CD jobs out of the box. Played around with overriding the jobs
 (https://vercel.com/guides/how-can-i-use-github-actions-with-vercel) before finding out these jobs
 can be customized in the vercel project settings (not a file in this repo).
 
-## SSR Bullshit
+## SSR
 
 Because I am using localstorage to store the username, nextjs goes crazy:
 https://nextjs.org/docs/messages/react-hydration-error
+
+Should I use more SSR for my app?
