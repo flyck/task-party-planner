@@ -1,0 +1,14 @@
+{
+  "name": "resolvers",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".#createParty.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-appsync/utils": "^1.6.0"
+  }
+}
