@@ -6,6 +6,7 @@ In this app I want to try a bunch of new things:
 - [x] Vercel for frontend hosting
 - [x] Automated releases with github actions
 - [x] Appsync javascript resolvers
+- [ ] Appsync subscriptions for real-time updates everywhere
 - [ ] Playwright frontend tests
 - [ ] HTMX instead of react & apollo
 
