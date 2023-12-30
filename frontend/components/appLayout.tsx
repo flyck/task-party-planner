@@ -1,3 +1,6 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/l6J3KeWghpZ
@@ -17,6 +20,7 @@ export default function AppLayout({
 }) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
+      <ToastContainer />
       <div className="p-4 mx-auto my-auto">
         <div id="modal-root" className="z-50"></div>
         <div className="mb-4 flex w-80">

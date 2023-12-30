@@ -1,11 +1,8 @@
 import React from "react"
 import AppLayout from "@/components/appLayout"
-import SubmitButton from "@/components/ui/minis/submitButton";
-import Input from "@/components/ui/minis/input";
+import SubmitButton from "./ui/minis/submitButton";
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client'
-import { CreatePartyMutation, CreatePartyMutationVariables, CreatePartyDocument } from "@/lib/gql/graphql";
-import { toast } from "react-toastify";
+import Input from "./ui/minis/input";
 
 /**
  * v0 by Vercel.
@@ -30,8 +27,6 @@ const PartyDetails: React.FC<{}> = () => {
     }
   });
 
-  const [createParty, { data, loading, error }] = useMutation<CreatePartyMutation, CreatePartyMutationVariables>(CreatePartyDocument);
-
   //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   React.useEffect(() => {
     setHydrated(true);
@@ -42,24 +37,10 @@ const PartyDetails: React.FC<{}> = () => {
   }
 
 
-  const submit = async (event: React.FormEvent) => {
+  const submit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log(getValues());
-    let id = ""
-    try {
-      // const { data, errors } = await createParty({
-      //   variables: getValues()
-      // })
-      // if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
-      // console.log(data)
-      id = "123-512-165"
-    } catch (error) {
-      toast.error("Couldnt create party.")
-      console.error("Caught: " + error)
-    }
-    console.log("error!")
-    toast.error("Couldnt create party.", { hideProgressBar: true, delay: 2000 })
-    // window.location.assign(`/${id}`)
+    // TODO redirect to new party URL
   };
 
   return (<AppLayout title="Details" left={""} right={""}>
