@@ -30,7 +30,7 @@ const PartyDetails: React.FC<{}> = () => {
     }
   });
 
-  const [createParty, { data, loading, error }] = useMutation<CreatePartyMutation, CreatePartyMutationVariables>(CreatePartyDocument);
+  const [createParty, { error, data, loading: createPartyLoading }] = useMutation<CreatePartyMutation, CreatePartyMutationVariables>(CreatePartyDocument);
 
   //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   React.useEffect(() => {
@@ -79,7 +79,7 @@ const PartyDetails: React.FC<{}> = () => {
         type: "text", onFocus: () => redirect(),
         ...register("description")
       }} />
-      <SubmitButton disabled={isUserSet()} />
+      <SubmitButton loading={createPartyLoading} props={{ disabled: isUserSet() }} />
     </form>
   </AppLayout>
   )

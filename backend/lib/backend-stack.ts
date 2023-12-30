@@ -53,6 +53,13 @@ export class BackendStack extends cdk.Stack {
       code: appsync.Code.fromAsset(join(__dirname, "./resolvers/createParty.js"))
     })
 
+    partyDataSource.createResolver("getParty", {
+      typeName: 'Query',
+      fieldName: 'getParty',
+      requestMappingTemplate: appsync.MappingTemplate.dynamoDbGetItem("id", "id"),
+      responseMappingTemplate: appsync.MappingTemplate.dynamoDbResultItem(),
+    });
+
     // Make the update respect existing data. First resolver is a javascript resolver as well since
     // javascript resolvers and templates cannot be mixed within the same pipeline
     const UpdatePartyF1 = new appsync.AppsyncFunction(this, "updatePartyF1", {

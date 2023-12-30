@@ -16,6 +16,7 @@ const documents = {
     "mutation createParty(\n  $title: String\n  $description: String\n  $location: String\n  $date: String\n) {\n createParty(\n  title: $title\n  description: $description\n  location: $location\n  date: $date\n  ) {\n    id\n  }\n}": types.CreatePartyDocument,
     "mutation deleteParty(\n  $id: String!\n) {\n deleteParty(\n  id: $id\n  ) {\n    id\n  }\n}": types.DeletePartyDocument,
     "query getParty(\n  $id: String!\n) {\n getParty(\n  id: $id\n  ) {\n    id\n    title\n    description\n    location\n    date\n  }\n}": types.GetPartyDocument,
+    "mutation updateParty(\n  $id: String!\n  $title: String\n  $description: String\n  $location: String\n  $date: String\n) {\n updateParty(\n  id: $id\n  title: $title\n  description: $description\n  location: $location\n  date: $date\n  ) {\n    id\n  }\n}": types.UpdatePartyDocument,
 };
 
 /**
@@ -44,6 +45,10 @@ export function graphql(source: "mutation deleteParty(\n  $id: String!\n) {\n de
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query getParty(\n  $id: String!\n) {\n getParty(\n  id: $id\n  ) {\n    id\n    title\n    description\n    location\n    date\n  }\n}"): (typeof documents)["query getParty(\n  $id: String!\n) {\n getParty(\n  id: $id\n  ) {\n    id\n    title\n    description\n    location\n    date\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation updateParty(\n  $id: String!\n  $title: String\n  $description: String\n  $location: String\n  $date: String\n) {\n updateParty(\n  id: $id\n  title: $title\n  description: $description\n  location: $location\n  date: $date\n  ) {\n    id\n  }\n}"): (typeof documents)["mutation updateParty(\n  $id: String!\n  $title: String\n  $description: String\n  $location: String\n  $date: String\n) {\n updateParty(\n  id: $id\n  title: $title\n  description: $description\n  location: $location\n  date: $date\n  ) {\n    id\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

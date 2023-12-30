@@ -4,7 +4,7 @@ import SubmitButton from "@/components/ui/minis/submitButton";
 import Input from "@/components/ui/minis/input";
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from "@apollo/client";
-import { DeletePartyDocument, DeletePartyMutation, DeletePartyMutationVariables, GetPartyDocument, GetPartyQuery, GetPartyQueryVariables } from "@/lib/gql/graphql";
+import { DeletePartyDocument, DeletePartyMutation, DeletePartyMutationVariables, GetPartyDocument, GetPartyQuery, GetPartyQueryVariables, UpdatePartyDocument, UpdatePartyMutation, UpdatePartyMutationVariables } from "@/lib/gql/graphql";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
@@ -27,6 +27,7 @@ const PartyDetails: React.FC<{}> = () => {
   } = useForm();
 
   const [deleteParty] = useMutation<DeletePartyMutation, DeletePartyMutationVariables>(DeletePartyDocument);
+
   const { loading: loadingParty, error, data: getPartyData } = useQuery<GetPartyQuery, GetPartyQueryVariables>(GetPartyDocument, {
     variables: { id },
     onCompleted: (result) => {
@@ -48,6 +49,10 @@ const PartyDetails: React.FC<{}> = () => {
     }
   });
 
+  const [updateParty, { loading: updatePartyLoading }] = useMutation<UpdatePartyMutation, UpdatePartyMutationVariables>(UpdatePartyDocument, {
+    variables: { id },
+  });
+
   //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   React.useEffect(() => {
     setHydrated(true);
@@ -57,8 +62,18 @@ const PartyDetails: React.FC<{}> = () => {
     return null;
   }
 
-  const submit = (event: React.FormEvent) => {
+  const submit = async (event: React.FormEvent) => {
     event.preventDefault();
+    console.log(getValues());
+    try {
+      const { data, errors } = await updateParty({
+        variables: { id, ...getValues() }
+      })
+      if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
+    } catch (error) {
+      toast.error("Couldnt update party.")
+      console.error("Caught: " + error)
+    }
   };
 
   const handleDelete = async () => {
@@ -98,7 +113,7 @@ const PartyDetails: React.FC<{}> = () => {
           Delete
         </button>
       </div>
-      <SubmitButton disabled={isUserSet()} />
+      <SubmitButton loading={updatePartyLoading} props={{ disabled: isUserSet() }} />
     </form>
   </AppLayout>
   )
