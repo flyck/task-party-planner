@@ -17,6 +17,13 @@ type Mutation {
     location: String
     date: String
   ): Party
+  updateParty(
+    id: String!
+    title: String
+    description: String
+    location: String
+    date: String
+  ): Party
   deleteParty(
     id: String!
   ): Party
