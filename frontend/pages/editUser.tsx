@@ -8,6 +8,11 @@ const EditUser: React.FC<{}> = () => {
   const searchParams = useSearchParams();
   //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   const [hydrated, setHydrated] = useState(false);
+  const [formData, setFormData] = useState({
+    userName: "",
+    userEmail: "",
+  });
+
   useEffect(() => {
     setHydrated(true);
     setFormData({
@@ -15,11 +20,6 @@ const EditUser: React.FC<{}> = () => {
       userEmail: localStorage.getItem("userEmail") || "",
     })
   }, []);
-
-  const [formData, setFormData] = useState({
-    userName: "",
-    userEmail: "",
-  });
 
   const showInfo = searchParams?.get('showInfo')
 
@@ -42,7 +42,11 @@ const EditUser: React.FC<{}> = () => {
 
   return (
     <AppLayout title="User" left={""} right={""}>
-      {showInfo ? <div className="border-b border-gray-500 p-2"><div className="p-2 italic border bg-gray-800 rounded-lg">ℹ A Username and Email is needed for party creation</div></div> : undefined}
+      {showInfo ? <div className="border-b border-gray-500 p-2">
+        <div className="p-2 text-sm italic border border-blue-900 bg-gray-800 rounded-lg">
+          ℹ A Username and Email are needed for party creation.
+        </div>
+      </div> : undefined}
       <form onSubmit={(event) => submit(event)}>
         <div className="border-b border-gray-500 p-2">
           <div className="text-sm">Name:</div>
