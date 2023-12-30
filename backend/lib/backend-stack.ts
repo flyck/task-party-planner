@@ -43,7 +43,7 @@ export class BackendStack extends cdk.Stack {
     });
 
 
-    const partyDataSource = api.addDynamoDbDataSource('dynamodbClients', partyTable);
+    const partyDataSource = api.addDynamoDbDataSource('partyDataSource', partyTable);
     const noneDataSource = api.addNoneDataSource('None');
 
     partyDataSource.createResolver("createParty", {
