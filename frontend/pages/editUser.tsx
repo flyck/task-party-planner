@@ -21,7 +21,6 @@ const EditUser: React.FC<{}> = () => {
     userEmail: "",
   });
 
-  // const displayDisclaimer = router.query.showInfo === 'true';
   const showInfo = searchParams?.get('showInfo')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
