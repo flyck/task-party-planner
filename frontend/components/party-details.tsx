@@ -6,8 +6,10 @@ import React from "react"
  */
 import { Button } from "@/components/ui/button"
 import AppLayout from "@/components/appLayout"
+import SubmitButton from "./ui/minis/submitButton";
 
 const PartyDetails: React.FC<{}> = () => {
+  //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   const [hydrated, setHydrated] = React.useState(false);
   React.useEffect(() => {
     setHydrated(true);
@@ -34,20 +36,16 @@ const PartyDetails: React.FC<{}> = () => {
       <div className="text-sm">Description:</div>
       <input className="w-full text-sm bg-gray-800 px-2 rounded-sm " type="text" defaultValue="" onFocus={() => checkUser()} />
     </div>
-    <div className="p-2 my-1">
-      <Button className="w-full bg-blue-900 h-8" disabled={true}>
-        Create
-      </Button>
-    </div>
+    <SubmitButton disabled={true} />
   </AppLayout>
   )
 }
 
 function checkUser() {
-  const userName = typeof window !== "undefined" ? window.localStorage.getItem("userName") : ""
-  const userEmail = typeof window !== "undefined" ? window.localStorage.getItem("userEmail") : ""
+  const userName = window.localStorage.getItem("userName")
+  const userEmail = window.localStorage.getItem("userEmail")
 
-  if (!userName) {
+  if (!userName && !userEmail) {
     window.location.assign("/editUser?showInfo=true");
   }
 }

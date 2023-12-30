@@ -1,6 +1,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from "react"
 import AppLayout from "@/components/appLayout"
+import SubmitButton from '@/components/ui/minis/submitButton';
 
 const EditUser: React.FC<{}> = () => {
   const router = useRouter();
@@ -64,11 +65,7 @@ const EditUser: React.FC<{}> = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="p-2 my-1">
-          <button className="w-full bg-blue-900 h-8" type="submit">
-            Ok
-          </button>
-        </div>
+        <SubmitButton />
       </form>
     </AppLayout>
   )

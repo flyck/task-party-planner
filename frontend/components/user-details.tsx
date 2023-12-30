@@ -10,7 +10,7 @@ const UserDetails: React.FC<any> = () => {
 
   return (<>
     <div className="text-right">
-      <Button className="inline-block bg-gray-900 border-gray-800" variant="outline" onClick={() => window.location.assign("/editUser")}>
+      <Button className="inline-block bg-gray-900 border-gray-800" onClick={() => window.location.assign("/editUser")}>
         {!hydrated ? null : getUserName()}
       </Button>
     </div >
@@ -18,7 +18,7 @@ const UserDetails: React.FC<any> = () => {
 }
 
 function getUserName() {
-  const name = window.localStorage.getItem("userName")
+  const name = localStorage.getItem("userName")
   return name || "Anonymous"
 }
 
