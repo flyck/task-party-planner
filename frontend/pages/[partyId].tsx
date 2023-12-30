@@ -1,8 +1,8 @@
 import React from "react"
 import AppLayout from "@/components/appLayout"
-import SubmitButton from "./ui/minis/submitButton";
+import SubmitButton from "@/components/ui/minis/submitButton";
+import Input from "@/components/ui/minis/input";
 import { useForm } from 'react-hook-form';
-import Input from "./ui/minis/input";
 
 /**
  * v0 by Vercel.
@@ -36,14 +36,13 @@ const PartyDetails: React.FC<{}> = () => {
     return null;
   }
 
-
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log(getValues());
     // TODO redirect to new party URL
   };
 
-  return (<AppLayout title="Details" left={""} right={""}>
+  return (<AppLayout title="Details" left={""} right={"/somewhere"}>
     <form onSubmit={(event) => submit(event)}>
       <Input title="Title" props={{
         type: "text", onFocus: () => redirect(),
