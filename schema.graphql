@@ -18,7 +18,7 @@ type Mutation {
     date: String
   ): Party
   deleteParty(
-    id: Int!
+    id: String!
   ): Party
 }
 
