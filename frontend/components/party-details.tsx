@@ -5,10 +5,9 @@
  * @see https://v0.dev/t/l6J3KeWghpZ
  */
 import { Button } from "@/components/ui/button"
-import UserDetails from "./user-details"
 import AppLayout from "@/app/appLayout"
 
-const PartyDetails: React.FC<any> = () => {
+const PartyDetails: React.FC<{}> = () => {
   return (<AppLayout title="Details" left={""} right={""}>
     <div className="border-b border-gray-500 p-2">
       <div className="text-sm">Title:</div>

@@ -15,7 +15,7 @@ const EditUser: React.FC<{}> = () => {
   // const displayDisclaimer = router.query.showInfo === 'true';
   const showInfo = searchParams?.get('showInfo')
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -23,7 +23,7 @@ const EditUser: React.FC<{}> = () => {
     }));
   };
 
-  const submit = (event: any) => {
+  const submit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log(formData);
     localStorage.setItem("userEmail", formData.userEmail)

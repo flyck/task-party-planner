@@ -21,7 +21,6 @@ const UserDetails: React.FC<any> = ({ epics, events, mode }) => {
         {userData?.name || "Anonymous"}
       </Button>
     </div >
-
   </>)
 }
 

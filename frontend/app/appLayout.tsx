@@ -45,7 +45,7 @@ export default function AppLayout({
   )
 }
 
-function ChevronLeftIcon(props) {
+const ChevronLeftIcon: React.FC<React.HTMLProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       {...props}
@@ -61,11 +61,11 @@ function ChevronLeftIcon(props) {
     >
       <path d="m15 18-6-6 6-6" />
     </svg>
-  )
-}
+  );
+};
 
 
-function ChevronRightIcon(props) {
+const ChevronRightIcon: React.FC<React.HTMLProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       {...props}
