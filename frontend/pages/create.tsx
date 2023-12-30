@@ -47,19 +47,17 @@ const PartyDetails: React.FC<{}> = () => {
     console.log(getValues());
     let id = ""
     try {
-      // const { data, errors } = await createParty({
-      //   variables: getValues()
-      // })
-      // if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
-      // console.log(data)
-      id = "123-512-165"
+      const { data, errors } = await createParty({
+        variables: getValues()
+      })
+      if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
+      id = data!.createParty!.id!
     } catch (error) {
       toast.error("Couldnt create party.")
       console.error("Caught: " + error)
     }
-    console.log("error!")
-    toast.error("Couldnt create party.", { hideProgressBar: true, delay: 2000 })
-    // window.location.assign(`/${id}`)
+    console.log("party created:" + id)
+    window.location.assign(`/${id}`)
   };
 
   return (<AppLayout title="Details" left={""} right={""}>

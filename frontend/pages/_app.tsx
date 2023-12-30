@@ -15,7 +15,10 @@ if (process.env.NODE_ENV === "development") {
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const client = new ApolloClient({
-    uri: 'https://flyby-router-demo.herokuapp.com/',
+    uri: process.env.NEXT_PUBLIC_API_URL,
+    headers: {
+      "x-api-key": process.env.NEXT_PUBLIC_API_KEY || ""
+    },
     cache: new InMemoryCache(),
   });
 

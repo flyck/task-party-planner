@@ -3,6 +3,10 @@ import AppLayout from "@/components/appLayout"
 import SubmitButton from "@/components/ui/minis/submitButton";
 import Input from "@/components/ui/minis/input";
 import { useForm } from 'react-hook-form';
+import { useMutation, useQuery } from "@apollo/client";
+import { DeletePartyDocument, DeletePartyMutation, DeletePartyMutationVariables, GetPartyDocument, GetPartyQuery, GetPartyQueryVariables } from "@/lib/gql/graphql";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 /**
  * v0 by Vercel.
@@ -11,6 +15,8 @@ import { useForm } from 'react-hook-form';
 
 const PartyDetails: React.FC<{}> = () => {
   const [hydrated, setHydrated] = React.useState(false);
+  const router = useRouter();
+  const id = router.query.partyId as string
   const {
     register,
     handleSubmit,
@@ -18,12 +24,27 @@ const PartyDetails: React.FC<{}> = () => {
     reset,
     getValues,
     setValue,
-  } = useForm({
-    defaultValues: {
-      title: "Birthday Party",
-      location: "Musterstreet 12, New York",
-      date: "June 10, 2023, 2:00 PM",
-      description: ""
+  } = useForm();
+
+  const [deleteParty] = useMutation<DeletePartyMutation, DeletePartyMutationVariables>(DeletePartyDocument);
+  const { loading: loadingParty, error, data: getPartyData } = useQuery<GetPartyQuery, GetPartyQueryVariables>(GetPartyDocument, {
+    variables: { id },
+    onCompleted: (result) => {
+      if (!result.getParty) {
+        console.error(result)
+        // TODO redirect to 404 page in certain conditions
+        toast.error("Couldnt find party.")
+      }
+      const { date, description, location, title } = result.getParty!
+      setValue("title", title)
+      setValue("location", location)
+      setValue("description", description)
+      setValue("date", date)
+    },
+    onError: (result) => {
+      console.error(result)
+      // TODO redirect to 404 page in certain conditions
+      toast.error("Couldnt retrieve party.")
     }
   });
 
@@ -38,9 +59,20 @@ const PartyDetails: React.FC<{}> = () => {
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(getValues());
-    // TODO redirect to new party URL
   };
+
+  const handleDelete = async () => {
+    try {
+      const { errors } = await deleteParty({
+        variables: { id }
+      })
+      if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
+    } catch (error) {
+      toast.error("Couldnt delete party.")
+      console.error("Caught: " + error)
+    }
+    window.location.assign("/")
+  }
 
   return (<AppLayout title="Details" left={""} right={"/somewhere"}>
     <form onSubmit={(event) => submit(event)}>
@@ -61,6 +93,11 @@ const PartyDetails: React.FC<{}> = () => {
         type: "text", onFocus: () => redirect(),
         ...register("description")
       }} />
+      <div className="p-2">
+        <button className="bg-red-800 text-gray-200 rounded-sm w-full" onClick={() => handleDelete()}>
+          Delete
+        </button>
+      </div>
       <SubmitButton disabled={isUserSet()} />
     </form>
   </AppLayout>
