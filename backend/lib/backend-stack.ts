@@ -5,6 +5,7 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as appsync from 'aws-cdk-lib/aws-appsync';
 import { join } from "path";
 import { createPartyResolvers } from './backend-stack.parties';
+import { createParticipantResolvers } from './backend-stack.participants';
 
 interface MultiStackProps extends StackProps {
   projectName: string
@@ -62,8 +63,10 @@ export class BackendStack extends cdk.Stack {
 
 
     const partyDataSource = api.addDynamoDbDataSource('partyDataSource', partyTable);
+    const participantDataSource = api.addDynamoDbDataSource('participantDataSource', participantTable);
     const noneDataSource = api.addNoneDataSource('None');
 
     createPartyResolvers(this, api, partyDataSource);
+    createParticipantResolvers(this, api, partyDataSource, participantDataSource);
   }
 }

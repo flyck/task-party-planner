@@ -1,3 +1,4 @@
+### Parties ###
 type Party {
   id: String
   title: String
@@ -6,7 +7,9 @@ type Party {
   date: String
 }
 
+### Pariticpants ###
 type Participant {
+  partyId: String
   id: String
   name: String
   email: String
@@ -14,13 +17,24 @@ type Participant {
   date: String
 }
 
-input ParticipantInput {
+input CreateParticipantInput {
+  partyId: String
   name: String
   email: String
   invitationSent: Boolean
   date: String
 }
 
+input UpdateParticipantInput {
+  partyId: String
+  id: String
+  name: String
+  email: String
+  invitationSent: Boolean
+  date: String
+}
+
+### Queries and Mutations ###
 type Query {
   getParty(id: String): Party
   getParticipant(id: String): Participant
@@ -28,12 +42,14 @@ type Query {
 }
 
 type Mutation {
+  # TODO change to input
   createParty(
     title: String
     description: String
     location: String
     date: String
   ): Party
+  # TODO change to input
   updateParty(
     id: String!
     title: String
@@ -44,8 +60,9 @@ type Mutation {
   deleteParty(
     id: String!
   ): Party
-  createParticipant(args: ParticipantInput): Participant
-  deleteParticipant(id: String): Participant
+  createParticipant(args: CreateParticipantInput): Participant
+  updateParticipant(args: UpdateParticipantInput): Participant
+  deleteParticipant(partyId: String, id: String): Participant
 }
 
 schema {
