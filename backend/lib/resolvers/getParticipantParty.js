@@ -6,12 +6,9 @@ import { util } from '@aws-appsync/utils';
  * @returns {import('@aws-appsync/utils').DynamoDBGetItemRequest} the request
  */
 export function request(ctx) {
-  const partyId = ctx.args?.args?.partyId || ctx.args.partyId
-  const id = ctx.args?.args?.id || ctx.args.id
-
   return {
     operation: 'GetItem',
-    key: util.dynamodb.toMapValues({ partyId, id }),
+    key: util.dynamodb.toMapValues({ id: ctx.args.args.partyId }),
   };
 }
 

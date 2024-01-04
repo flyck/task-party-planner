@@ -13,7 +13,7 @@ export function request(ctx) {
 
   const id = util.autoId().slice(0, 4)
 
-  return ddb.put({ key: { partyId: ctx.args.partyId, id }, item: ctx });
+  return ddb.put({ key: { partyId: ctx.args.args.partyId, id }, item: ctx.args.args });
 }
 
 export const response = (ctx) => ctx.result;

@@ -17,27 +17,25 @@ type Participant {
 }
 
 input CreateParticipantInput {
-  partyId: String
+  partyId: String!
   name: String
   email: String
   invitationSent: Boolean
-  date: String
 }
 
 input UpdateParticipantInput {
-  partyId: String
-  id: String
+  partyId: String!
+  id: String!
   name: String
   email: String
   invitationSent: Boolean
-  date: String
 }
 
 ### Queries and Mutations ###
 type Query {
   getParty(id: String): Party
-  getParticipant(id: String): Participant
-  getParticipants(partyId: String): [Participant]
+  getParticipant(partyId: String!, id: String!): Participant
+  getParticipants(partyId: String!): [Participant]
 }
 
 type Mutation {
@@ -59,9 +57,9 @@ type Mutation {
   deleteParty(
     id: String!
   ): Party
-  createParticipant(args: CreateParticipantInput): Participant
-  updateParticipant(args: UpdateParticipantInput): Participant
-  deleteParticipant(partyId: String, id: String): Participant
+  createParticipant(args: CreateParticipantInput!): Participant
+  updateParticipant(args: UpdateParticipantInput!): Participant
+  deleteParticipant(partyId: String!, id: String!): Participant
 }
 
 schema {
