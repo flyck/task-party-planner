@@ -6,8 +6,25 @@ type Party {
   date: String
 }
 
+type Participant {
+  id: String
+  name: String
+  email: String
+  invitationSent: Boolean
+  date: String
+}
+
+input ParticipantInput {
+  name: String
+  email: String
+  invitationSent: Boolean
+  date: String
+}
+
 type Query {
   getParty(id: String): Party
+  getParticipant(id: String): Participant
+  getParticipants(partyId: String): [Participant]
 }
 
 type Mutation {
@@ -27,6 +44,8 @@ type Mutation {
   deleteParty(
     id: String!
   ): Party
+  createParticipant(args: ParticipantInput): Participant
+  deleteParticipant(id: String): Participant
 }
 
 schema {
