@@ -14,7 +14,6 @@ type Participant {
   name: String
   email: String
   invitationSent: Boolean
-  date: String
 }
 
 input CreateParticipantInput {
