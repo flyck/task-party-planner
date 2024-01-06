@@ -35,6 +35,13 @@ export function createParticipantResolvers(stack: cdk.Stack, api: appsync.Graphq
     code: appsync.Code.fromAsset(join(__dirname, "./resolvers/getParticipant.js"))
   });
 
+  participants.createResolver("getParticipants", {
+    typeName: "Query",
+    fieldName: "getParticipants",
+    runtime: appsync.FunctionRuntime.JS_1_0_0,
+    code: appsync.Code.fromAsset(join(__dirname, "./resolvers/getParticipants.js"))
+  });
+
   // Make the update respect existing data. First resolver is a javascript resolver as well since
   // javascript resolvers and templates cannot be mixed within the same pipeline
   const UpdateParticipantF1 = new appsync.AppsyncFunction(stack, "updateParticipantF1", {

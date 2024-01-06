@@ -31,11 +31,21 @@ input UpdateParticipantInput {
   invitationSent: Boolean
 }
 
+type ParticipantsResult {
+  items: [Participant]
+  nextToken: String
+}
+
 ### Queries and Mutations ###
 type Query {
+  ## TODO delete also all participants once a party is deleted
   getParty(id: String): Party
   getParticipant(partyId: String!, id: String!): Participant
-  getParticipants(partyId: String!): [Participant]
+  getParticipants(
+    partyId: String!
+    limit: Int
+    nextToken: String
+  ): ParticipantsResult
 }
 
 type Mutation {
