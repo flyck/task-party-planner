@@ -15,6 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "mutation createParty(\n  $title: String\n  $description: String\n  $location: String\n  $date: String\n) {\n createParty(\n  title: $title\n  description: $description\n  location: $location\n  date: $date\n  ) {\n    id\n  }\n}": types.CreatePartyDocument,
     "mutation deleteParty(\n  $id: String!\n) {\n deleteParty(\n  id: $id\n  ) {\n    id\n  }\n}": types.DeletePartyDocument,
+    "query getParticipants(\n  $partyId: String!\n  $limit: Int\n  $nextToken: String\n) {\n getParticipants(\n  partyId: $partyId\n  limit: $limit\n  nextToken: $nextToken\n  ) {\n    items {\n      id\n      name\n      email\n      invitationSent\n    }\n    nextToken\n  }\n}": types.GetParticipantsDocument,
     "query getParty(\n  $id: String!\n) {\n getParty(\n  id: $id\n  ) {\n    id\n    title\n    description\n    location\n    date\n  }\n}": types.GetPartyDocument,
     "mutation updateParty(\n  $id: String!\n  $title: String\n  $description: String\n  $location: String\n  $date: String\n) {\n updateParty(\n  id: $id\n  title: $title\n  description: $description\n  location: $location\n  date: $date\n  ) {\n    id\n  }\n}": types.UpdatePartyDocument,
 };
@@ -41,6 +42,10 @@ export function graphql(source: "mutation createParty(\n  $title: String\n  $des
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation deleteParty(\n  $id: String!\n) {\n deleteParty(\n  id: $id\n  ) {\n    id\n  }\n}"): (typeof documents)["mutation deleteParty(\n  $id: String!\n) {\n deleteParty(\n  id: $id\n  ) {\n    id\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query getParticipants(\n  $partyId: String!\n  $limit: Int\n  $nextToken: String\n) {\n getParticipants(\n  partyId: $partyId\n  limit: $limit\n  nextToken: $nextToken\n  ) {\n    items {\n      id\n      name\n      email\n      invitationSent\n    }\n    nextToken\n  }\n}"): (typeof documents)["query getParticipants(\n  $partyId: String!\n  $limit: Int\n  $nextToken: String\n) {\n getParticipants(\n  partyId: $partyId\n  limit: $limit\n  nextToken: $nextToken\n  ) {\n    items {\n      id\n      name\n      email\n      invitationSent\n    }\n    nextToken\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
