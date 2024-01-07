@@ -1,7 +1,7 @@
-const SubmitButton: React.FC<{ loading?: boolean, props?: React.HTMLProps<HTMLButtonElement> }> = ({ props, loading }) => {
+const SubmitButton: React.FC<{ loading?: boolean, props?: React.HTMLProps<HTMLButtonElement>, text?: string }> = ({ props, loading, text = "Ok" }) => {
   return (
     <button {...props} className="disabled:bg-gray-800 bg-blue-800 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center" type="submit" >
-      {!loading ? "Ok" : <LoaderIcon className="animate-spin h-5 w-5" />}
+      {!loading ? text : <LoaderIcon className="animate-spin h-5 w-5" />}
     </button>
   )
 }

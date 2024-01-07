@@ -1,15 +1,18 @@
-import { util } from '@aws-appsync/utils'
-import * as ddb from '@aws-appsync/utils/dynamodb'
+import { util } from '@aws-appsync/utils';
 
 /**
- * Sends a request to create an item
+ * Sends a request to get an item with id `ctx.args.id`
  * @param {import('@aws-appsync/utils').Context} ctx the context
- * @returns {import('@aws-appsync/utils').DynamoDBPutItemRequest} the request
+ * @returns {import('@aws-appsync/utils').DynamoDBGetItemRequest} the request
  */
-
 export function request(ctx) {
-  const id = util.autoId().slice(0, 8)
-  return ddb.put({ key: { id }, item: ctx.args });
+  const partyId = ctx.args?.args?.partyId || ctx.args.partyId
+  const id = ctx.args?.args?.id || ctx.args.id
+
+  return {
+    operation: 'GetItem',
+    key: util.dynamodb.toMapValues({ partyId, id }),
+  };
 }
 
 /**
