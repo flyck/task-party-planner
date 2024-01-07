@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const createParty = gql`query getParticipants(
+const getParticipants = gql`query getParticipants(
   $partyId: String!
   $limit: Int
   $nextToken: String
@@ -20,4 +20,4 @@ const createParty = gql`query getParticipants(
   }
 }`
 
-export default createParty
+export default getParticipants

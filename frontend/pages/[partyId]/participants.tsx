@@ -37,7 +37,7 @@ const PartyDetails: React.FC<{}> = () => {
     {getParticipantData?.getParticipants?.items ?
       getParticipantData?.getParticipants?.items?.map((guy) => userElement(guy as Participant)) : undefined
     }
-    <SubmitButton props={{ disabled: true }} text="+" />
+    <SubmitButton props={{ disabled: isUserSet(), onClick: () => window.location.assign(`/${partyId}/participants/create`) }} text="+" />
   </AppLayout>
   )
 }
