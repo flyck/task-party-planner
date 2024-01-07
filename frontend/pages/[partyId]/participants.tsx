@@ -35,7 +35,7 @@ const PartyDetails: React.FC<{}> = () => {
 
   return (<AppLayout title="Participants" left={`/${partyId}`} right={""}>
     {getParticipantData?.getParticipants?.items ?
-      getParticipantData?.getParticipants?.items?.map((guy) => userElement(guy as Participant)) : undefined
+      getParticipantData?.getParticipants?.items?.map((guy) => userElement(guy as Participant, partyId)) : undefined
     }
     <SubmitButton props={{ disabled: isUserSet(), onClick: () => window.location.assign(`/${partyId}/participants/create`) }} text="+" />
   </AppLayout>
@@ -49,10 +49,10 @@ function isUserSet() {
   return (!userName || !userEmail)
 }
 
-function userElement(guy: Participant) {
-  return <div className="border-b border-gray-500 p-2">
+function userElement(guy: Participant, partyId: String) {
+  return <a href={`/${partyId}/participants/${guy.id}`}><div className="border-b border-gray-500 p-2">
     <div className="text-sm">{guy.name || "?"} ({guy.email})</div>
-  </div>
+  </div ></a>
 }
 
 export default PartyDetails
