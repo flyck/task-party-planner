@@ -16,11 +16,26 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type CreateParticipantInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  invitationSent?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  partyId: Scalars['String']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createParticipant?: Maybe<Participant>;
   createParty?: Maybe<Party>;
+  deleteParticipant?: Maybe<Participant>;
   deleteParty?: Maybe<Party>;
+  updateParticipant?: Maybe<Participant>;
   updateParty?: Maybe<Party>;
+};
+
+
+export type MutationCreateParticipantArgs = {
+  args: CreateParticipantInput;
 };
 
 
@@ -32,8 +47,19 @@ export type MutationCreatePartyArgs = {
 };
 
 
+export type MutationDeleteParticipantArgs = {
+  id: Scalars['String']['input'];
+  partyId: Scalars['String']['input'];
+};
+
+
 export type MutationDeletePartyArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateParticipantArgs = {
+  args: UpdateParticipantInput;
 };
 
 
@@ -45,23 +71,68 @@ export type MutationUpdatePartyArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Participant = {
+  __typename?: 'Participant';
+  email?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  invitationSent?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  partyId?: Maybe<Scalars['String']['output']>;
+};
+
+export type ParticipantsResult = {
+  __typename?: 'ParticipantsResult';
+  items?: Maybe<Array<Maybe<Participant>>>;
+  nextToken?: Maybe<Scalars['String']['output']>;
+};
+
 export type Party = {
   __typename?: 'Party';
   date?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Scalars['String']['output']>;
+  participants?: Maybe<ParticipantsResult>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type PartyParticipantsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  nextToken?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  getParticipant?: Maybe<Participant>;
+  getParticipants?: Maybe<ParticipantsResult>;
   getParty?: Maybe<Party>;
 };
 
 
+export type QueryGetParticipantArgs = {
+  id: Scalars['String']['input'];
+  partyId: Scalars['String']['input'];
+};
+
+
+export type QueryGetParticipantsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  nextToken?: InputMaybe<Scalars['String']['input']>;
+  partyId: Scalars['String']['input'];
+};
+
+
 export type QueryGetPartyArgs = {
-  id?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+};
+
+export type UpdateParticipantInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+  invitationSent?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  partyId: Scalars['String']['input'];
 };
 
 export type CreatePartyMutationVariables = Exact<{
