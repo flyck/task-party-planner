@@ -5,6 +5,7 @@ type Party {
   description: String
   location: String
   date: String
+  participants(limit: Int, nextToken: String): ParticipantsResult
 }
 
 ### Pariticpants ###
@@ -39,7 +40,7 @@ type ParticipantsResult {
 ### Queries and Mutations ###
 type Query {
   ## TODO delete also all participants once a party is deleted
-  getParty(id: String): Party
+  getParty(id: String!): Party
   getParticipant(partyId: String!, id: String!): Participant
   getParticipants(
     partyId: String!

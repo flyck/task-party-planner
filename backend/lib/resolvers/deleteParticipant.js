@@ -10,4 +10,15 @@ export function request(ctx) {
   return ddb.remove({ key: { partyId: ctx.args.partyId, id: ctx.args.id }, item: ctx });
 }
 
-export const response = (ctx) => ctx.result;
+/**
+ * Returns the deleted DynamoDB item
+ * @param {import('@aws-appsync/utils').Context} ctx the context
+ * @returns {*} the DynamoDB item
+ */
+export function response(ctx) {
+  if (ctx.error) {
+    util.error(ctx.error.message, ctx.error.type);
+  }
+
+  return ctx.result;
+}

@@ -42,8 +42,16 @@ export function createParticipantResolvers(stack: cdk.Stack, api: appsync.Graphq
     code: appsync.Code.fromAsset(join(__dirname, "./resolvers/getParticipants.js"))
   });
 
+  participants.createResolver("getPartyParticipants", {
+    typeName: "Party",
+    fieldName: "participants",
+    runtime: appsync.FunctionRuntime.JS_1_0_0,
+    code: appsync.Code.fromAsset(join(__dirname, "./resolvers/getPartyParticipants.js"))
+  });
+
   // Make the update respect existing data. First resolver is a javascript resolver as well since
   // javascript resolvers and templates cannot be mixed within the same pipeline
+  // NICETOHAVE can be problably replaced with smart dynamodb updateItem call
   const UpdateParticipantF1 = new appsync.AppsyncFunction(stack, "updateParticipantF1", {
     api,
     name: "UpdateParticipantGet",
