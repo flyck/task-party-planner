@@ -89,7 +89,7 @@ const PartyDetails: React.FC<{}> = () => {
     window.location.assign("/")
   }
 
-  return (<AppLayout title="Details" left={""} right={"/somewhere"}>
+  return (<AppLayout title="Details" left={""} right={`${id}/participants`}>
     <form onSubmit={(event) => submit(event)}>
       <Input title="Title" props={{
         type: "text", onFocus: () => redirect(),

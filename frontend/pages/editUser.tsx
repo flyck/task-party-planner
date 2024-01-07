@@ -36,7 +36,7 @@ const EditUser: React.FC<{}> = () => {
     console.log(formData);
     localStorage.setItem("userEmail", formData.userEmail)
     localStorage.setItem("userName", formData.userName)
-    // BUGBUG wont work if somebody deeplinked this
+    // BUGBUG wont work if somebody deeplinked this. can be solved via querystring
     router.back()
   };
 
