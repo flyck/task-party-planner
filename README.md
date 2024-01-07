@@ -31,3 +31,9 @@ Because I am using localstorage to store the username, nextjs goes crazy:
 https://nextjs.org/docs/messages/react-hydration-error
 
 Should I use more SSR for my app?
+
+## GraphQL Schema
+
+- Would be nice to have an auto-increment id for the participants
+- Is it annoying that the participants have the partyId as the PK? Maybe in some hypothetical
+  support cases, but there could be work-arounds for these
