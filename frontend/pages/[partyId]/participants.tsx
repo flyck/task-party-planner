@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 const PartyDetails: React.FC<{}> = () => {
   const [hydrated, setHydrated] = React.useState(false);
   const router = useRouter();
-  const id = router.query.partyId as string
+  const partyId = router.query.partyId as string
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ const PartyDetails: React.FC<{}> = () => {
   const [deleteParty] = useMutation<DeletePartyMutation, DeletePartyMutationVariables>(DeletePartyDocument);
 
   const { loading: loadingParty, error, data: getPartyData } = useQuery<GetPartyQuery, GetPartyQueryVariables>(GetPartyDocument, {
-    variables: { id },
+    variables: { id: partyId },
     onCompleted: (result) => {
       if (!result.getParty) {
         console.error(result)
@@ -50,7 +50,7 @@ const PartyDetails: React.FC<{}> = () => {
   });
 
   const [updateParty, { loading: updatePartyLoading }] = useMutation<UpdatePartyMutation, UpdatePartyMutationVariables>(UpdatePartyDocument, {
-    variables: { id },
+    variables: { id: partyId },
   });
 
   //https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
@@ -67,7 +67,7 @@ const PartyDetails: React.FC<{}> = () => {
     console.log(getValues());
     try {
       const { data, errors } = await updateParty({
-        variables: { id, ...getValues() }
+        variables: { id: partyId, ...getValues() }
       })
       if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
     } catch (error) {
@@ -79,7 +79,7 @@ const PartyDetails: React.FC<{}> = () => {
   const handleDelete = async () => {
     try {
       const { errors } = await deleteParty({
-        variables: { id }
+        variables: { id: partyId }
       })
       if (errors != undefined) { throw "Found an error: " + JSON.stringify(errors) }
     } catch (error) {
@@ -89,7 +89,7 @@ const PartyDetails: React.FC<{}> = () => {
     window.location.assign("/")
   }
 
-  return (<AppLayout title="Details" left={""} right={`${id}/participants`}>
+  return (<AppLayout title="Details" left={`/${partyId}`} right={""}>
     <form onSubmit={(event) => submit(event)}>
       <Input title="Title" props={{
         type: "text", onFocus: () => redirect(),
